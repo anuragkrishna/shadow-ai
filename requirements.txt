@@ -1,0 +1,9 @@
+chromadb
+litellm
+sentence-transformers
+watchdog
+crawl4ai
+apscheduler
+streamlit
+pypdf
+pydantic<2.0
