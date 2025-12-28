@@ -7,7 +7,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import streamlit as st
 import json
 import threading
-from src import brain, database, watcher
+from src import brain, database, watcher, scheduler
 
 # Page Configuration
 st.set_page_config(
@@ -22,13 +22,21 @@ if "messages" not in st.session_state:
 
 if "watcher_running" not in st.session_state:
     # Start the folder watcher in a background thread
-    # We use a flag to prevent multiple watchers
     try:
         watcher.start_background_watcher()
         st.session_state.watcher_running = True
         print("[App] Background watcher started.")
     except Exception as e:
         st.error(f"Failed to start watcher: {e}")
+
+if "scheduler_running" not in st.session_state:
+    # Start the scheduler
+    try:
+        scheduler.start_scheduler()
+        st.session_state.scheduler_running = True
+        print("[App] Scheduler started.")
+    except Exception as e:
+        st.error(f"Failed to start scheduler: {e}")
 
 def load_config():
     try:
