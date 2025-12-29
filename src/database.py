@@ -99,11 +99,21 @@ def get_stats():
     Returns statistics about the knowledge base.
     """
     try:
-        count = collection.count()
-        # Since we can't easily count by metadata without fetching, we'll just return total for now.
-        # Or we can do a peek to estimate if needed, but count is fast.
+        # Count files
+        files_result = collection.get(where={"source": "file"}, include=[])
+        file_count = len(files_result['ids']) if files_result else 0
+        
+        # Count chat messages
+        chats_result = collection.get(where={"source": "chat_history"}, include=[])
+        chat_count = len(chats_result['ids']) if chats_result else 0
+        
         return {
-            "total_documents": count
+            "total_documents": file_count,
+            "total_chat_messages": chat_count
         }
     except Exception as e:
-        return {"error": str(e)}
+        print(f"[Database] Error getting stats: {e}")
+        return {
+            "total_documents": 0,
+            "total_chat_messages": 0
+        }

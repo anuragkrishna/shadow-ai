@@ -7,3 +7,4 @@ apscheduler
 streamlit
 pypdf
 pydantic-settings
+duckduckgo-search

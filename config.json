@@ -7,6 +7,6 @@
         "time": "21:00",
         "sources_file": "sources.json"
     },
-    "llm_model": "ollama/llama3.2:3b",
+    "llm_model": "ollama/llama3.2",
     "embedding_model": "all-MiniLM-L6-v2"
 }
